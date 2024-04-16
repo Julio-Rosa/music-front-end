@@ -1,0 +1,24 @@
+<div *ngIf="error">
+    {{errorMessage}}
+</div>
+<div *ngIf="success">
+  {{successMessage}}
+</div>
+<form [formGroup]="musicForm" (ngSubmit)="onSubmit()" >
+    <label for="firstName">Name:</label>
+    <input type="text" id="name" formControlName="name" [(ngModel)]="name">
+    <div *ngIf="subbmited">
+      <span *ngIf="musicForm.get('name').errors?.['required']">O Nome não pode estar em branco!</span>
+    </div>
+     
+    <label for="releaseDate">Release Date:</label>
+    <input type="date" id="releaseDate"  formControlName="releaseDate" [(ngModel)]="releaseDate">
+    <div *ngIf="subbmited">
+      <span *ngIf="musicForm.get('releaseDate').errors?.['required'] || musicForm.get('releaseDate').errors?.['pattern'] ">Insira uma data valida!</span>
+    </div>
+   
+  
+  
+  
+    <button type="submit">SALVAR</button>
+  </form>

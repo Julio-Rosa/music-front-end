@@ -1,0 +1,40 @@
+<div class="container">
+    <app-error-popup class="popup-container" *ngIf="error" [message]="errorMessage"></app-error-popup>
+    <app-success-popup class="popup-container" *ngIf="success" [message]="successMessage"></app-success-popup>
+    <div class="page-name">
+        <p>EDITAR ARTISTA</p>
+    </div>
+    <div id="edit">
+        <div id="form-container">
+
+            <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                <div id="inputs-div">
+                    <div id="picture" [style.backgroundImage]="'url(' + imageUrl + ')'">
+                        <input id="upload" type="file" (change)="onChange($event)" hidden />
+                        <label class="button" for="upload">UPLOAD</label>
+
+
+                    </div>
+
+                    <div id="name">
+                        <div id="name-form">
+                            <label for="name">Nome</label>
+                            <input type="text" id="name" formControlName="name" [(ngModel)]="artist.name">
+                        </div>
+                            <div  id="error" class="error" *ngIf="subbmited">
+                                <span *ngIf="editForm.get('name').errors?.['required']">O Nome não pode estar em
+                                branco!</span>
+                            </div>
+                            
+                        
+
+                    </div>
+                </div>
+                <div id="submit-div">
+                    <button class="button" type="submit">SALVAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

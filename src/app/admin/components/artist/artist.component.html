@@ -1,0 +1,99 @@
+<div *ngIf="artist" class="container">
+
+    <app-error-popup class="popup-container" *ngIf="error" [message]="errorMessage"></app-error-popup>
+    <app-success-popup class="popup-container" *ngIf="success" [message]="successMessage"></app-success-popup>
+   
+
+    <div class="artist-container" [style.backgroundImage]="'url(' + artist.image_url + ')'">
+        
+        <div class="shader">
+            <div id="artist">
+                <div id="artist-div">
+                    <div id="picture">
+                        <div class="image" [style.backgroundImage]="'url(' + artist.image_url + ')'"></div>
+                    </div>
+                    <div id="name">
+                        <p>{{artist.name}}</p>
+                    </div>
+                    <div id="edit">
+                        <div class="button" (click)="editArtist(artist.artist_id)">EDITAR</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="music">
+                <div class="image-container">
+
+                    <form [formGroup]="musicForm" (ngSubmit)="onSubmit()">
+                        <div id="new-music">
+                            <p>NOVA MUSICA</p>
+                        </div>
+                        <div class="label-container">
+                            <div class="labels-card">
+                                <label for="firstName">Nome:</label>
+                                <div class="input-card">
+                                    <input type="text" id="name" formControlName="name">
+                                </div>
+                            </div>
+                            <div class="error" *ngIf="subbmited">
+                                <span *ngIf="musicForm.get('name').errors?.['required']">O Nome não pode estar em
+                                    branco!</span>
+                            </div>
+
+                            <div class="labels-card">
+                                <label for="releaseDate">Data de Lançamento:</label>
+                                <div class="input-card">
+                                    <input type="date" id="releaseDate" formControlName="releaseDate">
+                                </div>
+                            </div>
+                            <div class="error" *ngIf="subbmited">
+                                <span
+                                    *ngIf="musicForm.get('releaseDate').errors?.['required'] || musicForm.get('releaseDate').errors?.['pattern'] ">Insira
+                                    uma data valida!</span>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="submit">
+                            <button type="submit">SALVAR</button>
+                        </div>
+                    </form>
+
+
+
+
+                </div>
+
+                <div class="content-container">
+                    <div>
+                        <div class="list">
+                            <div class="mixed">TRACKS MIXED BY SERBAN</div>
+                            <div style="color: white;" *ngIf="noMusics">Nenhuma musica encontrada!</div>
+
+                            <div class="item" *ngFor="let music of musics">
+
+                                <p>Nome: {{music.name}}</p>
+                                <p> Lançamento:{{music.release_date}}</p>
+                                <button class="button blue" (click)="editMusic(music.music_id)">Editar</button>
+                                <button class="button red" (click)="showDeleteModal(music.music_id)">Deletar</button>
+                                <app-generic-modal class="popup-container" *ngIf="isModalOpen" [message]="message" (confirm)="confirmDelete()"
+                                    (cancel)="cancelDelete()">
+                                </app-generic-modal>
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
