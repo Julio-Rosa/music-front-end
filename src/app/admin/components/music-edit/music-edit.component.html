@@ -1,24 +1,65 @@
-<div *ngIf="error">
-    {{errorMessage}}
-</div>
-<div *ngIf="success">
-  {{successMessage}}
-</div>
-<form [formGroup]="musicForm" (ngSubmit)="onSubmit()" >
-    <label for="firstName">Name:</label>
-    <input type="text" id="name" formControlName="name" [(ngModel)]="name">
-    <div *ngIf="subbmited">
-      <span *ngIf="musicForm.get('name').errors?.['required']">O Nome não pode estar em branco!</span>
+<div class="container">
+  <app-error-popup class="popup-container" *ngIf="error" [message]="errorMessage"></app-error-popup>
+      <app-success-popup class="popup-container" *ngIf="success" [message]="successMessage"></app-success-popup>
+      <div class="page-name">
+        <p>EDITAR MÚSICA</p>
     </div>
-     
-    <label for="releaseDate">Release Date:</label>
-    <input type="date" id="releaseDate"  formControlName="releaseDate" [(ngModel)]="releaseDate">
-    <div *ngIf="subbmited">
-      <span *ngIf="musicForm.get('releaseDate').errors?.['required'] || musicForm.get('releaseDate').errors?.['pattern'] ">Insira uma data valida!</span>
-    </div>
-   
+<div id="form-div">
+  <div class="image-container">
+    
+  
+    <form [formGroup]="musicForm" (ngSubmit)="onSubmit()">
+        <div id="new-music">
+          
+        </div>
+        <div class="label-container">
+            <div class="labels-card">
+                <label for="firstName">Nome:</label>
+                <div class="input-card">
+                    <input type="text" id="name" [(ngModel)]="music.name"  formControlName="name">
+                </div>
+            </div>
+            <div class="error" *ngIf="subbmited">
+                <span *ngIf="musicForm.get('name').errors?.['required']">O Nome não pode estar em
+                    branco!</span>
+            </div>
+            <div class="labels-card">
+                <label for="musicUrl">Link da Musica:</label>
+                <div class="input-card">
+                    <input type="text" id="name"  [(ngModel)]="music.music_url" formControlName="musicUrl">
+                </div>
+            </div>
+            <div class="error" *ngIf="subbmited">
+                <span *ngIf="musicForm.get('musicUrl').errors?.['pattern']">O link da musica não é válido!
+                    </span>
+            </div>
+  
+            <div class="labels-card">
+                <label for="releaseDate">Data de Lançamento:</label>
+                <div class="input-card">
+                    <input type="text"   id="releaseDate" [(ngModel)]="dateInput" (input)="onDateChange($event)" formControlName="releaseDate">
+                </div>
+            </div>
+            <div class="error" *ngIf="subbmited">
+                <span
+                    *ngIf=" musicForm.get('releaseDate').errors?.['pattern']  ">Insira
+                    uma data valida!
+                </span>
+                <span *ngIf=" musicForm.get('releaseDate').errors?.['required']  ">A data não pode estar em branco!</span>
+            </div>
+        </div>
   
   
   
-    <button type="submit">SALVAR</button>
-  </form>
+  
+        <div class="submit">
+            <button class="button gray-3" type="submit">SALVAR</button>
+        </div>
+    </form>
+  
+  
+  
+  
+  </div>
+</div>
+</div>

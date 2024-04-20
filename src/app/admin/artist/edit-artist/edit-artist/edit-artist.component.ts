@@ -98,6 +98,7 @@ export class EditArtistComponent implements OnInit {
 
       setTimeout(() => {
         this.success = false;
+        this.router.navigate(['admin/artist/', this.artistId]);
       }, 3000)
     }, (error) => {
       if(error.status === 403){

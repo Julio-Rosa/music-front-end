@@ -7,6 +7,7 @@ import { MusicService } from '../../services/music.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileUploadService } from '../../services/file-upload/file-upload.service';
 import { threadId } from 'worker_threads';
+import { DateUtilService } from 'src/app/utils/date-util/date-util.service';
 
 @Component({
   selector: 'app-artist',
@@ -25,6 +26,8 @@ export class ArtistComponent implements OnInit {
   musicId: string;
   artist: ArtistModel;
   musics: MusicModel[] = [];
+  musicsTemp: MusicModel[] = [];
+  
 
   noMusics:boolean = false;
   isModalOpen: boolean = false;
@@ -33,12 +36,16 @@ export class ArtistComponent implements OnInit {
   musicForm: FormGroup;
   subbmited: boolean = false;
 
+  dateInput:string;
+  
+
   
   
-  constructor(private fileUploadService: FileUploadService,private activatedRoute: ActivatedRoute, private route: Router, private artistService: ArtistService, private musicService: MusicService, private formBuilder: FormBuilder) { 
+  constructor(private dateService: DateUtilService,private fileUploadService: FileUploadService,private activatedRoute: ActivatedRoute, private route: Router, private artistService: ArtistService, private musicService: MusicService, private formBuilder: FormBuilder) { 
     this.musicForm = formBuilder.group({
       name: ['', Validators.required],
-      releaseDate: ['', Validators.required],
+      releaseDate: ['', Validators.pattern(/^\d{2}\/\d{2}\/\d{4}$/)],
+      musicUrl: ['',Validators.pattern(/^(http:\/\/|https:\/\/)/i)],
 
     });
   }
@@ -49,6 +56,7 @@ export class ArtistComponent implements OnInit {
    
 
   }
+ 
 
   showDeleteModal(musicId: string){
     this.message = 'Tem certeza que você quer deletar esse item?'
@@ -64,7 +72,17 @@ export class ArtistComponent implements OnInit {
        this.artist = result;
       });
       this.artistService.getAllMusicsByArtistId(this.artistId).subscribe(result => {
-        this.musics = result;
+        
+        this.musicsTemp = result;
+
+        this.musicsTemp.forEach(music => {
+          music.release_date = this.dateService.formatDateToGet(music.release_date);
+          
+        })
+        this.musics = this.musicsTemp;
+
+       
+        
       },(error) => {
         if(error.status === 404){
           this.noMusics = true;
@@ -109,6 +127,7 @@ export class ArtistComponent implements OnInit {
     this.route.navigate(['admin/music/edit', musicId])
   };
   newMusic(body:any){
+    
     this.musicService.newMusic(body).subscribe(response => {
     
       this.success = true;
@@ -120,6 +139,7 @@ export class ArtistComponent implements OnInit {
       },2000);
     },(error) => {
       this.error = true;
+      this.errorMessage = "Ocorreu um erro ao criar uma nova musica!"
 
       if(error.status === 403){
 
@@ -128,6 +148,10 @@ export class ArtistComponent implements OnInit {
         },200)
         
       }
+
+        
+        
+      
     })
 
   }
@@ -139,16 +163,40 @@ export class ArtistComponent implements OnInit {
   }
 
 
-
+  
   onSubmit() {
     this.subbmited = true;
     if (this.musicForm.invalid) {
+     
       
       return;
     } else {
-      const body = { name: this.musicForm.get('name').value, release_date: this.musicForm.get('releaseDate').value, artist_id: this.artistId }
+
+      const date = this.dateService.formatDateToSend(this.musicForm.get('releaseDate').value);
+     
+      const body = { name: this.musicForm.get('name').value, release_date: date, music_url: this.musicForm.get('musicUrl').value,artist_id: this.artistId }
 
       this.newMusic(body);
     }
   }
+
+
+  
+
+  onDateChange(event:any){
+    const inputValue = event.target.value;
+
+    if(inputValue.length === 2 && !inputValue.includes('/')){
+      this.dateInput = inputValue + '/';
+    }else if(inputValue.length === 5 && inputValue.charAt(2) === '/' && !inputValue.includes('/',3)){
+      this.dateInput = inputValue.slice(0,5) + inputValue.charAt(5) + '/';
+      
+    }
+    
+   
+    
+
+   ;
+  }
+
 }

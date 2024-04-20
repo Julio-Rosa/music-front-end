@@ -39,16 +39,26 @@
                                 <span *ngIf="musicForm.get('name').errors?.['required']">O Nome não pode estar em
                                     branco!</span>
                             </div>
+                            <div class="labels-card">
+                                <label for="musicUrl">Link da Musica:</label>
+                                <div class="input-card">
+                                    <input type="text" id="name" formControlName="musicUrl">
+                                </div>
+                            </div>
+                            <div class="error" *ngIf="subbmited">
+                                <span *ngIf="musicForm.get('musicUrl').errors?.['pattern']">O link da musica não é válido!
+                                    </span>
+                            </div>
 
                             <div class="labels-card">
                                 <label for="releaseDate">Data de Lançamento:</label>
                                 <div class="input-card">
-                                    <input type="date" id="releaseDate" formControlName="releaseDate">
+                                    <input type="text"   id="releaseDate" [(ngModel)]="dateInput" (input)="onDateChange($event)" formControlName="releaseDate">
                                 </div>
                             </div>
                             <div class="error" *ngIf="subbmited">
                                 <span
-                                    *ngIf="musicForm.get('releaseDate').errors?.['required'] || musicForm.get('releaseDate').errors?.['pattern'] ">Insira
+                                    *ngIf=" musicForm.get('releaseDate').errors?.['pattern'] ">Insira
                                     uma data valida!</span>
                             </div>
                         </div>
@@ -57,7 +67,7 @@
 
 
                         <div class="submit">
-                            <button type="submit">SALVAR</button>
+                            <button class="button gray-3" type="submit">SALVAR</button>
                         </div>
                     </form>
 
@@ -76,6 +86,7 @@
 
                                 <p>Nome: {{music.name}}</p>
                                 <p> Lançamento:{{music.release_date}}</p>
+                                <a class="button green" href="{{music.music_url}}" target="_blank"  >Ouvir</a>
                                 <button class="button blue" (click)="editMusic(music.music_id)">Editar</button>
                                 <button class="button red" (click)="showDeleteModal(music.music_id)">Deletar</button>
                                 <app-generic-modal class="popup-container" *ngIf="isModalOpen" [message]="message" (confirm)="confirmDelete()"

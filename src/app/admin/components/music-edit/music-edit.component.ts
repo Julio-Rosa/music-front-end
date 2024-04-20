@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MusicModel } from '../../models/music-model';
 import { MusicService } from '../../services/music.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DateUtilService } from 'src/app/utils/date-util/date-util.service';
 
 
 @Component({
@@ -25,19 +26,25 @@ export class MusicEditComponent implements OnInit {
   musicForm: FormGroup;
   subbmited: boolean = false;
 
+  dateInput:string;
 
 
 
-  constructor(private musicService: MusicService, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private router: Router) {
+
+  constructor(private dateService: DateUtilService, private musicService: MusicService, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private router: Router) {
     this.musicForm = formBuilder.group({
       name: ['', Validators.required],
-      releaseDate: ['', Validators.required],
+      releaseDate: ['', [Validators.pattern(/^\d{2}\/\d{2}\/\d{4}$/), Validators.required]],
+      musicUrl: ['',Validators.pattern(/^(http:\/\/|https:\/\/)/i)],
 
     });
   }
 
   ngOnInit(): void {
+    
     this.getMusics();
+    
+   
 
 
   }
@@ -49,7 +56,7 @@ export class MusicEditComponent implements OnInit {
       this.musicService.getMusicById(this.musicId).subscribe(result => {
         this.music = result;
         this.name = this.music.name;
-        this.releaseDate = this.music.release_date;
+        this.dateInput = this.dateService.formatDateToGet(this.music.release_date);
 
        
 
@@ -66,25 +73,51 @@ export class MusicEditComponent implements OnInit {
       }, 5000)
     }, (error) => {
       this.error = true;
+     
       if (error.status === 403) {
         this.errorMessage = error['error']['message'];
         setTimeout(() => {
+         
           this.router.navigate(['auth/login'])
-        }, 5000)
+        }, 2000)
+      }else{
+        this.errorMessage = "Ocorreu um erro!"
+        setTimeout(() => [
+         
+          this.error = false
+        ],3000)
       }
     })
   }
   onSubmit() {
+   
     this.subbmited = true;
     if (this.musicForm.invalid) {
-      console.log(this.musicForm.errors)
+     
+      
       return;
     } else {
-      const body = { name: this.musicForm.get('name').value, release_date: this.musicForm.get('releaseDate').value }
+
+      const date = this.dateService.formatDateToSend(this.musicForm.get('releaseDate').value);
+     
+      const body = { name: this.musicForm.get('name').value, release_date: date, music_url: this.musicForm.get('musicUrl').value}
 
       this.updateMusic(body, this.musicId);
     }
   }
+  onDateChange(event:any){
+    const inputValue = event.target.value;
+
+    if(inputValue.length === 2 && !inputValue.includes('/')){
+      this.dateInput = inputValue + '/';
+    }else if(inputValue.length === 5 && inputValue.charAt(2) === '/' && !inputValue.includes('/',3)){
+      this.dateInput = inputValue.slice(0,5) + inputValue.charAt(5) + '/';
+      
+    }
+  }
+
+  
+
 
 
 
