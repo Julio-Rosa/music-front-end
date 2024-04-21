@@ -16,6 +16,7 @@ import { EditArtistComponent } from './artist/edit-artist/edit-artist/edit-artis
 import { GenericModalComponent } from '../components/modal/generic-modal/generic-modal.component';
 import { ErrorPopupComponent } from '../popup/error-popup/error-popup/error-popup.component';
 import { SuccessPopupComponent } from '../popup/success-popup/success-popup/success-popup.component';
+import { NewComponent } from './artist/new/new.component';
 
 
 
@@ -32,7 +33,8 @@ import { SuccessPopupComponent } from '../popup/success-popup/success-popup/succ
     EditArtistComponent,
     GenericModalComponent,
     ErrorPopupComponent,
-    SuccessPopupComponent
+    SuccessPopupComponent,
+    NewComponent
     
     
     

@@ -118,4 +118,8 @@ export class ArtistsComponent implements OnInit {
     this.isModalOpen = false;
 
   }
+
+  newArtistRedirect(){
+    this.route.navigate(['admin/artist/new'])
+  }
 }
