@@ -83,12 +83,15 @@ export class ArtistsComponent implements OnInit {
   deleteById(id: string) {
     this.artistService.deleteById(id).subscribe(result => {
      
-      this.reset();
-      
-      setTimeout(() => {
+     this.success = true;
+     this.successMessage = 'Artista deletado!'
 
-       
-      }, 5000)
+      setTimeout(() =>{
+        this.success = false;
+        this.reset();
+      }, 3000)
+      
+     
     }, (error) => {
       if (error.status === 403) {
         this.errorMessage = error['error']['message'];
@@ -100,7 +103,7 @@ export class ArtistsComponent implements OnInit {
     })
   };
  
-  showDeleteModal(artistId: string){
+  showDeleteModal(){
     this.isModalOpen = true;
   }
  
@@ -112,10 +115,11 @@ export class ArtistsComponent implements OnInit {
   cancelDelete(){
     this.isModalOpen = false;
   }
-  confirmDelete(){
+  confirmDelete(id:string){
 
 
     this.isModalOpen = false;
+    this.deleteById(id);
 
   }
 

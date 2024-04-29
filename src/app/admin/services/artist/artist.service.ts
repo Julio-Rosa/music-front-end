@@ -41,5 +41,9 @@ export class ArtistService {
     return this.http.put<ArtistModel>(`http://localhost:8082/artist/${artistId}`, body);
   }
 
+  newArtist(body:any): Observable<ArtistModel>{
+    return this.http.post<ArtistModel>(`http://localhost:8082/artist/`, body)
+  }
+
 
 }

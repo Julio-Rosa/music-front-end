@@ -72,8 +72,8 @@
                     </div>
                     <div>
                         <button class="button blue " (click)="edit(artist.artist_id);">EDITAR</button>
-                        <button class="button red " (click)="showDeleteModal(artist.artist_id)">DELETAR</button>
-                        <app-generic-modal *ngIf="isModalOpen" [message]="message" (confirm)="confirmDelete()"
+                        <button class="button red " (click)="showDeleteModal()">DELETAR</button>
+                        <app-generic-modal *ngIf="isModalOpen" [message]="message" (confirm)="confirmDelete(artist.artist_id)"
                                     (cancel)="cancelDelete()">
                                 </app-generic-modal>
                         
