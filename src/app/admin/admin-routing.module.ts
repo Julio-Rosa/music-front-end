@@ -15,11 +15,13 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: 'artists', component: ArtistsComponent },
+      {path:'users', component: UsersComponent},
       { path: 'artist/new', component: NewComponent },
       { path: 'artist/:id', component: ArtistComponent },
      
       {path: 'artist/edit/:id', component: EditArtistComponent},
-      {path:'music/edit/:id', component: MusicEditComponent}
+      {path:'music/edit/:id', component: MusicEditComponent},
+      
     ]
   },
 

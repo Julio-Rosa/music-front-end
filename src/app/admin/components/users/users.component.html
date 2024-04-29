@@ -1,1 +1,87 @@
-<p>users works!</p>
+
+
+<div class="container">
+    <app-success-popup  class="popup-container" *ngIf="success" [message]="successMessage"></app-success-popup>
+    <app-error-popup class="popup-container" *ngIf="error" [message]="errorMessage"></app-error-popup>
+   
+
+    <div class="header">
+        <div id="new-artist" >
+            <button id="new-artist-btn" class="button blue" (click)="newArtistRedirect()">Novo Usuário</button>
+        </div>
+        <div id="header-text"><p>Usuários</p></div>
+    </div>
+    <div class="f-container">
+        <div class="filters">
+            <div class="radio-filter">
+                <form (ngSubmit)="getUsers()">
+    
+                    <div class="radios">
+                        <div class="sortBy">
+                            <p>LISTAR</p>
+                            <div>
+                                <label>
+                                    <input type="radio" name="sortOption" value="createdAt" [(ngModel)]="sortBy"> Data
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="sortOption" value="name" [(ngModel)]="sortBy"> Nome
+                                  </label>
+                            </div>
+                        </div>
+                        <div class="orderBy">
+                            <p>ORDENAR</p>
+                            <div>
+                                <label>
+                                    <input type="radio" name="filterOption" value="ASC" [(ngModel)]="sortOrder"> Ascendente
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="filterOption" value="DESC" [(ngModel)]="sortOrder"> Descendente
+                                  </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter">
+                        <button class="button gray-3" type="submit">FILTRAR</button>
+                        <button class="button gray-3" (click)="reset()">RESETAR</button>
+                    </div>
+                </form>
+            </div>
+            <div class="search-filter">
+             <form  #searchForm="ngForm" (ngSubmit)="getByName()">
+                <p>PEQUISAR POR NOME</p>
+                <div>
+                    <input type="text" name="nameFilter"  id="nameFilter" placeholder="Nome do usuário..." [(ngModel)]="nameFilter">
+                    <button class="button gray-3" type="submit">PESQUISAR</button>
+                </div>
+             </form>
+            </div>
+         
+        </div>
+    </div>
+    <div class="no-artists" *ngIf="noUsers">
+        Nenhum artista encontrado!
+    </div>
+    <div class="list">
+
+        <div *ngFor="let user of users" >
+            <div class="overlay">
+
+                <div class="card">
+                    <div class="name">
+                        <p>{{user.name}}</p>
+                    </div>
+                    <div>
+                        <button class="button blue " (click)="edit(user.user_id);">EDITAR</button>
+                        <button class="button red " (click)="showDeleteModal()">DELETAR</button>
+                        <app-generic-modal *ngIf="isModalOpen" [message]="message" (confirm)="confirmDelete(user.user_id)"
+                                    (cancel)="cancelDelete()">
+                                </app-generic-modal>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
