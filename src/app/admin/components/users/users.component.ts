@@ -72,7 +72,15 @@ export class UsersComponent implements OnInit {
     }, (error) => {
       if (error.status == 404) {
         this.noUsers = true;
-      }else{
+      }else if (error.status == 403){
+        this.error = true;
+        this.errorMessage = 'Operação não permitida, redirecionando!'
+        setTimeout(() => {
+          this.error = false;
+          this.route.navigate(['auth/login'])
+        }, 5000)
+      }
+      else{
         this.error = true;
         setTimeout(() => {
           this.error = false;

@@ -5,8 +5,10 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+
     align-items: center;
+    gap: 5px;
+   
 
 
 }
@@ -31,9 +33,10 @@
 
 
 
-    
+
 }
-#new-artist-btn{
+
+#new-artist-btn {
     font-size: 1.0rem;
     font-weight: 700;
 }
@@ -44,8 +47,8 @@
     display: flex;
     align-items: center;
 
-    
-   
+
+
 }
 
 .header #header-text>p {
@@ -53,169 +56,7 @@
     color: white;
 }
 
-.f-container {
-    width: 100%;
-    height: 30%;
-    background-color: aqua;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.filters {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 90%;
-    height: 90%;
-
-    background-color: aliceblue;
-
-
-
-
-}
-
-.radio-filter {
-    width: 50%;
-    height: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-
-}
-
-.radio-filter>form {
-    width: 90%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.radio-filter>form .radios {
-    display: flex;
-    gap: 5px;
-
-    width: 100%;
-    height: 70%;
-
-
-}
-
-.radios>.sortBy {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    height: 100%;
-
-
-}
-
-.sortBy>p {
-    display: flex;
-    align-items: center;
-    border-bottom: 2px solid black;
-    font-size: 15px;
-    width: 100%;
-    height: 20%;
-}
-
-.sortBy>div {
-    width: 100%;
-    height: 80%;
-
-    display: flex;
-    gap: 25px;
-
-
-}
-
-.radios>.orderBy {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    height: 100%;
-
-
-}
-
-.orderBy>p {
-    display: flex;
-    align-items: center;
-    border-bottom: 2px solid black;
-    font-size: 15px;
-    width: 100%;
-    height: 20%;
-}
-
-.orderBy>div {
-    width: 100%;
-    height: 80%;
-
-    display: flex;
-    gap: 15px;
-
-
-}
-
-.radio-filter>form .filter {
-    display: flex;
-    width: 100%;
-    height: 30%;
-    gap: 10px;
-
-
-}
-
-
-
-
-
-.search-filter {
-    width: 50%;
-    height: 90%;
-
-}
-
-.search-filter>form {
-    width: 90%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.search-filter form>p {
-    display: flex;
-    align-items: center;
-    border-bottom: 2px solid black;
-    font-size: 15px;
-    width: 100%;
-    height: 15%;
-}
-
-.search-filter form>div {
-    display: flex;
-    align-items: flex-start;
-
-    height: 95%;
-    width: 100%;
-
-}
-
-.search-filter form div>input {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 20%;
-    width: 40%;
-
-
-}
 
 
 .no-artists {
@@ -227,7 +68,7 @@
 
 .list {
     width: 100%;
-    height: 60%;
+    height: 20%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
@@ -239,56 +80,69 @@
     height: 100%;
 
     display: flex;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.39);
+    flex-direction: column;
+    align-items: center;
+
+    background-color: white;
+    box-shadow: 1px 1px 5px 5px rgba(0, 0, 0, 0.123);
+    border-radius: 5px;
 }
 
-.overlay:hover {
-
-    background-color: rgba(0, 0, 0, 0.479);
-}
 
 
 
 .card {
     display: flex;
+    
     flex-direction: column;
+    
 
     width: 90%;
-    gap: 20px;
-
-
-
+    height: 100%;
 
 }
 
-.name {
+.data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+   
     width: 100%;
-    cursor: pointer;
+    height: 70%;
+    gap: 5px;
+
+    
+}
+
+.data > div{
+    
+
+    width: 80%;
+
+    font-size: 1.0rem;
+    color: black
+
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+#buttons {
     display: flex;
-    align-items: center;
 
-
-
-}
-
-.name>p {
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
-    width: 60%;
-    border-radius: 5px;
-}
-
-.name p:hover {
-    background-color: rgba(0, 0, 0, 0.473);
-}
-
-.card>div {
-    display: flex;
     gap: 4px;
     width: 100%;
-    height: 60%;
+    height: 20%;
 
 }
 
