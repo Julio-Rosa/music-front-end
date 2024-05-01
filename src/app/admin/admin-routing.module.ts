@@ -8,6 +8,7 @@ import { ArtistComponent } from './components/artist/artist.component';
 import { MusicEditComponent } from './components/music-edit/music-edit.component';
 import { EditArtistComponent } from './artist/edit-artist/edit-artist/edit-artist.component';
 import { NewComponent } from './artist/new/new.component';
+import { NewUserComponent } from './components/users/user/new-user/new-user.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
     children: [
       { path: 'artists', component: ArtistsComponent },
       {path:'users', component: UsersComponent},
+      {path:'user/new', component: NewUserComponent},
       { path: 'artist/new', component: NewComponent },
       { path: 'artist/:id', component: ArtistComponent },
      

@@ -1,0 +1,86 @@
+<div class="container">
+    <app-error-popup class="popup-container" *ngIf="error" [message]="errorMessage"></app-error-popup>
+    <app-success-popup class="popup-container" *ngIf="success" [message]="successMessage"></app-success-popup>
+    <div class="page-name">
+        <p>EDITAR ARTISTA</p>
+    </div>
+    <div id="edit">
+        <div id="form-container">
+
+            <form [formGroup]="newForm" (ngSubmit)="onSubmit()">
+                <div id="inputs-div">
+
+
+                    <div id="name">
+                        <div id="name-form">
+                            <label for="name">Nome</label>
+                            <input type="text" id="name" formControlName="name">
+                        </div>
+                        <div id="error" class="error" *ngIf="subbmited">
+                            <span *ngIf="newForm.get('name').errors?.['required']">O Nome não pode estar em
+                                branco!</span>
+                        </div>
+
+
+
+                    </div>
+                    <div id="name">
+                        <div id="name-form">
+                            <label for="email">Email</label>
+                            <input type="text" id="email" formControlName="email">
+                        </div>
+                        <div id="error" class="error" *ngIf="subbmited">
+                            <span *ngIf="newForm.get('email').errors?.['email']">Insira um email válido!</span>
+                            <span *ngIf="alreadExists">O email já existe!!</span>
+                        </div>
+
+
+
+                    </div>
+                    <div id="name">
+                        <div id="name-form">
+                            <div id="password">
+                                <div class="pass-inputs">
+                                    <label for="password">Senha</label>
+                                    <input type="password" id="password" formControlName="password">
+                                </div>
+                                <div id="error" class="error" *ngIf="subbmited">
+                                    <!-- <span *ngIf="newForm.get('password').errors?.['required']">A senha não pode estár em branco!</span> -->
+                                    <span *ngIf="newForm.get('password').errors?.['lengthMin']">As senha deve ter no minimo 8 caracteres!</span>
+                                    <span *ngIf="newForm.get('password').errors?.['containsUpper']">As senha deve ter pelo menos uma letra maiscula!!</span>
+                                    <span *ngIf="newForm.get('password').errors?.['containsLower']">As senha deve ter pelo menos uma letra minuscula!!</span>
+                                    <span *ngIf="newForm.get('password').errors?.['containsSpecialChar']">As senha deve ter pelo menos um caracter especial!</span>
+                                    <span *ngIf="newForm.get('password').errors?.['containsNumber']">As senha deve ter pelo menos um número</span>
+                                    
+                                   
+                                </div>
+                               
+                                <div class="pass-inputs">
+                                    <label for="password2">Repita</label>
+                                    <input type="password" id="password2" formControlName="password2">
+                                </div>
+                               
+        
+                                <div id="error" class="error" *ngIf="subbmited">
+                                   
+                                    <span *ngIf="newForm.get('password2').errors?.['notEqual']">As senhas não conferem!</span>
+                                   
+                                </div>
+        
+                              
+                            </div>
+                        </div>
+                       
+
+
+
+                    </div>
+                </div>
+                <div id="submit-div">
+                    <button class="button" type="submit">SALVAR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -23,6 +23,7 @@ export class UsersComponent implements OnInit {
   message = 'Tem certeza que deseja deletar?????'
 
   users: User[] = [];
+  user: User;
   noUsers: boolean = false;
   page: number = 1;
   pageSize: number = 10;
@@ -36,11 +37,18 @@ export class UsersComponent implements OnInit {
 
   @ViewChild('searchForm') searchForm!: NgForm;
 
-  constructor(private userService:UserService, private route: Router) { }
+  constructor(private userService: UserService, private route: Router) { }
 
   ngOnInit(): void {
-
+    this.me();
     this.getUsers();
+
+  }
+
+  me() {
+    this.userService.me().subscribe(response => {
+      this.user = response;
+    })
   }
 
   reset() {
@@ -64,15 +72,20 @@ export class UsersComponent implements OnInit {
 
   };
   getUsers() {
+
     this.userService.getAll().subscribe(data => {
-      this.users = data;
 
+      let usersData: User[] = [];
+      usersData = data;
+      let index = usersData.findIndex(index => index.user_id === this.user.user_id);
+      usersData.splice(index);
+      this.users = usersData;
 
-
+      // Remove the logged user os list of users
     }, (error) => {
       if (error.status == 404) {
         this.noUsers = true;
-      }else if (error.status == 403){
+      } else if (error.status == 403) {
         this.error = true;
         this.errorMessage = 'Operação não permitida, redirecionando!'
         setTimeout(() => {
@@ -80,20 +93,20 @@ export class UsersComponent implements OnInit {
           this.route.navigate(['auth/login'])
         }, 5000)
       }
-      else{
+      else {
         this.error = true;
         setTimeout(() => {
           this.error = false;
         }, 5000)
       }
-     
+
 
     })
 
   };
   deleteById(id: string) {
     // this.artistService.deleteById(id).subscribe(result => {
-     
+
     //  this.success = true;
     //  this.successMessage = 'Artista deletado!'
 
@@ -101,32 +114,32 @@ export class UsersComponent implements OnInit {
     //     this.success = false;
     //     this.reset();
     //   }, 3000)
-      
-     
-  //   }, (error) => {
-  //     if (error.status === 403) {
-  //       this.errorMessage = error['error']['message'];
-  //       this.error = true;
-  //       setTimeout(() => {
-  //         this.route.navigate(['auth/login'])
-  //       }, 5000)
-  //     }
-  //   })
-   };
- 
-  showDeleteModal(){
+
+
+    //   }, (error) => {
+    //     if (error.status === 403) {
+    //       this.errorMessage = error['error']['message'];
+    //       this.error = true;
+    //       setTimeout(() => {
+    //         this.route.navigate(['auth/login'])
+    //       }, 5000)
+    //     }
+    //   })
+  };
+
+  showDeleteModal() {
     // this.isModalOpen = true;
   }
- 
+
   edit(artistId: string) {
     // this.route.navigate(['admin/artist/', artistId])
   }
 
 
-  cancelDelete(){
+  cancelDelete() {
     // this.isModalOpen = false;
   }
-  confirmDelete(id:string){
+  confirmDelete(id: string) {
 
 
     // this.isModalOpen = false;
@@ -134,8 +147,8 @@ export class UsersComponent implements OnInit {
 
   }
 
-  newArtistRedirect(){
-    // this.route.navigate(['admin/artist/new'])
+  newUserRedirect() {
+  this.route.navigate(['admin/user/new']);
   }
 
 }

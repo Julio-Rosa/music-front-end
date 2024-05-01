@@ -19,6 +19,9 @@ export class UserService {
 getAll(): Observable<User[]>{
   return this.http.get<User[]>(`http://localhost:8082/user/all`)
 }
+me():Observable<User>{
+  return this.http.get<User>(`http://localhost:8082/user/me`)
+}
 
 
 }

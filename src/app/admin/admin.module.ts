@@ -17,6 +17,7 @@ import { GenericModalComponent } from '../components/modal/generic-modal/generic
 import { ErrorPopupComponent } from '../popup/error-popup/error-popup/error-popup.component';
 import { SuccessPopupComponent } from '../popup/success-popup/success-popup/success-popup.component';
 import { NewComponent } from './artist/new/new.component';
+import { NewUserComponent } from './components/users/user/new-user/new-user.component';
 
 
 
@@ -34,7 +35,8 @@ import { NewComponent } from './artist/new/new.component';
     GenericModalComponent,
     ErrorPopupComponent,
     SuccessPopupComponent,
-    NewComponent
+    NewComponent,
+    NewUserComponent
     
     
     
