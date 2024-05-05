@@ -23,5 +23,13 @@ me():Observable<User>{
   return this.http.get<User>(`http://localhost:8082/user/me`)
 }
 
+new(body:any):Observable<User>{
+  return this.http.post<User>(`http://localhost:8082/user/new`, body)
+}
+deleteById(id:string):Observable<any>{
+  
+  return this.http.delete<any>(`http://localhost:8082/user/${id}`)
+}
+
 
 }

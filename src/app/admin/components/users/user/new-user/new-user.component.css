@@ -9,6 +9,7 @@
     display:flex ;
     flex-direction: column;
     align-items: center;
+    justify-content:center;
     width: 100%;
     height: 100%;
     background-color: aqua;
@@ -16,154 +17,174 @@
 
 
 
-#edit{
-   display: flex;
-   align-items: center;
-   justify-content: center;
+#form-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
+   
 
+   
   
-
-
-   
 }
-
-#edit > #form-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60%;
-    height: 80%;
-    
-
-    background-color: rgb(240, 248, 255);
-}
-
-#edit  #form-container > form{
+form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    
-    width: 80%;
+    width: 50%;
     height: 80%;
 
-    gap: 30px;
-
-    padding: 30px;
-
-    
-    
+    background-color: white;
 }
 
-#edit  #form-container  form > #inputs-div{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    width: 100%;
-    height: 40%;
-
-    border-bottom: 2px solid black;
-
-
-    
-
-   
-
-    
-}
-
-
-
-
-
-
-#edit  #form-container  form  #inputs-div > #name{
+#inputs-card{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    width: 90%;
+    height: 70%;
     gap: 20px;
-    width: 70%;
-    height: 90%;
-    
-
-}
-#edit  #form-container  form  #inputs-div  #name  #name-form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 50%;
-
-    font-size: 20px;
+    padding: 20px;
 
    
-    
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.473);
+
 }
 
-#edit  #form-container  form  #inputs-div  #name  #name-form > label{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20%;
-    height: 40%;
 
-    font-size: 20px;
-    
-}
-#edit  #form-container  form  #inputs-div  #name  #name-form > input{
-    width: 60%;
-    height: 40%;
-
-    font-size: 20px;
-
-    font-weight: 400;
-    
-}
-
-#password {
-    display: flex;
-    flex-direction: column;
-}
-
-.pass-inputs{
+.inputs-content{
     display: flex;
     flex-direction: row;
-}
-#error {
-    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 60%;
-}
-
-
-#edit  #form-container  form  #submit-div{
-    display: flex;
-    align-items: center;
-    justify-content: end;
     width: 100%;
     height: 10%;
 
+   
+   
     
+   
+   
+}
 
+
+
+.inputs-content > label {
+    display: flex;
+    align-items: center;
+   
+    height: 100%;
+    width: 20%;
+
+    
+}
+
+.input-div{
+    display: flex;
+    align-items: center;
+  
+    width: 80%;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.473);
+
+   
+
+}
+
+.input-div > input{
+    border: 1px solid rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 90%;
+   
+
+    
+   
+
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+
+#errors{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+    width: 60%;
+    height: 5%;
+   
+
+   
+}
+#errors > .error{
+    display: flex;
+    justify-content: center;
+   
+   
+   
+    width: 100%;
+    height: 100%;
+}
+#errors  .error > span{
+    display: flex;
+   align-items: center;
+   
+   
+    width: 100%;
+    height: 100%;
+}
+#errors > .pass-errors{
+    width: 100%;
+    display: flex;
+   
+    gap: 5px;
+
+    color: red;
+  
+    
+}
+
+#errors .pass-errors > span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+   
+    font-size: 0.7rem;
+
+    border-radius: 5px;
+    
    
     
 }
-#edit  #form-container  form  #submit-div > button{
-    width: 20%;
-    height: 80%;
-
-    background-color: #292929;
-    border: none;
-
-    color: white;
-    font-size: 15px;
-    font-weight:500;
-
-    cursor: pointer;
+.font-green{
     
+    color: rgb(3, 97, 45);
 }
+
+.font-red{
+    
+    color: red;
+}
+
+
+#submit-card{
+
+    width: 90%;
+    height: 20%;
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+}
+
+
+.disabled{
+
+   background-color: antiquewhite;
+   cursor: not-allowed;
+
+}
+
+

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/admin/services/user/user.service';
 
 @Component({
   selector: 'app-new-user',
@@ -18,80 +20,170 @@ export class NewUserComponent implements OnInit {
   error: boolean = false;
   errorMessage: string = 'Ocorreu um erro!'
   passwordToSend: string;
+  isError = true;
+
+ 
 
 
 
 
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) {
     this.newForm = formBuilder.group({
-      email: ['', Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      password: ['',],
-      password2: ['',]
+      password: ['', [Validators.required, this.validPassword()]],
+      confirmPassword: ['',]
 
-    })
+    }, { validator: this.passwordMatchValidator })
   }
 
   ngOnInit(): void {
 
   }
 
-  verifyIfPassworsAreEqual(password: any, passwordRepeat: any) {
 
-    if (password === passwordRepeat) {
 
-      return password;
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password').value;
+    const confirmPassword = form.get('confirmPassword').value;
+
+    if (confirmPassword.length <= 0) {
+      return form.get('confirmPassword').setErrors({ empty: true });
     } else {
 
-      this.newForm.get('password2').setErrors({ notEqual: true });
+      if (password !== confirmPassword) {
+
+
+        console.log(password !==confirmPassword);
+
+        return form.get('confirmPassword').setErrors({ mismatch: true });
+      } else {
+
+
+
+
+
+        return form.get('confirmPassword').setErrors(null);
+      }
     }
+
+
 
   }
 
-  validPassword(password: any) {
-    const hasUpperCase = /[A-Z]/;
-    const hasLowerCase = /[a-z]/;
-    const hasSpecialChar = /[^a-zA-Z0-9\s]/;
-    const hasNumber = /\d/;
-
-    if (password.length < 8) {
-      this.newForm.get('password').setErrors({ lengthMin: true });
-    }
-    if (!hasUpperCase.test(password)) {
-      this.newForm.get('password').setErrors({ containsUpper: true });
-    }
-    if (!hasLowerCase.test(password)) {
-      this.newForm.get('password').setErrors({ containsLower: true });
-    }
-    if (!hasSpecialChar.test(password)) {
-      this.newForm.get('password').setErrors({ containsSpecialChar: true });
-    }
-    if (!hasNumber.test(password)) {
-      this.newForm.get('password').setErrors({ containsNumber: true });
-    }
 
 
 
 
+
+
+
+
+
+
+
+  validPassword(): ValidatorFn {
+
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const value: string = control.value;
+
+      const containsSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(value);
+      const containsNumber = /\d+/.test(value);
+      const containsLower = /[a-z]+/.test(value);
+      const containsUpper = /[A-Z]+/.test(value);
+      const minLength = (value.length >= 8)
+
+
+
+      if (containsSpecialChar && containsNumber && containsLower && containsUpper && minLength) {
+        return null;
+      }
+
+
+      return {
+        'passwordRequirements': {
+          'specialChar': !containsSpecialChar,
+          'number': !containsNumber,
+          'lower': !containsLower,
+          'upper': !containsUpper,
+          'length': !minLength
+        }
+      }
+    }
+
+
+
+
+
+
+
+
+  }
+
+  new(body: any) {
+    this.userService.new(body).subscribe(response => {
+      
+      this.success = true;
+      this.successMessage = 'Usúario criado com sucesso!';
+
+      setTimeout(() => {
+        this.router.navigate(['/admin/users'])
+      }, 2000)
+    }, (error) => {
+      if (error.status === 400) {
+        if (error['error']['message'] === 'User already exists!') {
+          this.newForm.get('email').setErrors({ userAlreadyExists: true });
+        }
+      }else{
+        this.error = true;
+        this.errorMessage = 'Ocorreu um erro ao criar um novo usúario!'
+        setTimeout(() => {
+          this.error = false;
+        }, 3000)
+      }
+    })
+  }
+
+  get name() {
+
+    return this.newForm.get('name');
+  }
+  get email() {
+    return this.newForm.get('email');
+  }
+
+  get password() {
+
+    return this.newForm.get('password');
+  }
+  get confirmPassword() {
+
+    return this.newForm.get('confirmPassword');
   }
 
   onSubmit() {
 
     this.subbmited = true;
-    this.validPassword(this.newForm.get('password').value);
-    this.verifyIfPassworsAreEqual(this.newForm.get('password').value, this.newForm.get('password2').value);
+
+
+
 
 
     if (this.newForm.invalid) {
+
+      
       return;
     }
+
+
     const body = {
       name: this.newForm.get('name').value,
       email: this.newForm.get('email').value,
-      passwordToSend: this.newForm.get('password').value,
+      password: this.newForm.get('password').value,
 
     }
+
+    this.new(body);
 
   }
 

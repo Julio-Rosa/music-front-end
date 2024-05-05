@@ -52,8 +52,8 @@ export class UsersComponent implements OnInit {
   }
 
   reset() {
-    // this.noArtists = false;
-    // this.getArtists();
+    this.noUsers = false;
+    this.getUsers();
   };
   getByName() {
     // this.noArtists = false;
@@ -79,7 +79,14 @@ export class UsersComponent implements OnInit {
       usersData = data;
       let index = usersData.findIndex(index => index.user_id === this.user.user_id);
       usersData.splice(index);
+
+     
       this.users = usersData;
+      
+      if(this.users.length === 0){
+        
+        this.noUsers = true;
+      }
 
       // Remove the logged user os list of users
     }, (error) => {
@@ -105,30 +112,30 @@ export class UsersComponent implements OnInit {
 
   };
   deleteById(id: string) {
-    // this.artistService.deleteById(id).subscribe(result => {
+    this.userService.deleteById(id).subscribe(result => {
 
-    //  this.success = true;
-    //  this.successMessage = 'Artista deletado!'
+     this.success = true;
+     this.successMessage = 'Usuário deletado!'
 
-    //   setTimeout(() =>{
-    //     this.success = false;
-    //     this.reset();
-    //   }, 3000)
+      setTimeout(() =>{
+        this.success = false;
+        this.reset();
+      }, 3000)
 
 
-    //   }, (error) => {
-    //     if (error.status === 403) {
-    //       this.errorMessage = error['error']['message'];
-    //       this.error = true;
-    //       setTimeout(() => {
-    //         this.route.navigate(['auth/login'])
-    //       }, 5000)
-    //     }
-    //   })
+      }, (error) => {
+        if (error.status === 403) {
+          this.errorMessage = error['error']['message'];
+          this.error = true;
+          setTimeout(() => {
+            this.route.navigate(['auth/login'])
+          }, 5000)
+        }
+      })
   };
 
   showDeleteModal() {
-    // this.isModalOpen = true;
+    this.isModalOpen = true;
   }
 
   edit(artistId: string) {
@@ -142,8 +149,8 @@ export class UsersComponent implements OnInit {
   confirmDelete(id: string) {
 
 
-    // this.isModalOpen = false;
-    // this.deleteById(id);
+    this.isModalOpen = false;
+    this.deleteById(id);
 
   }
 
