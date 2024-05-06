@@ -55,22 +55,7 @@ export class UsersComponent implements OnInit {
     this.noUsers = false;
     this.getUsers();
   };
-  getByName() {
-    // this.noArtists = false;
-    // this.artists.splice(0, this.artists.length);
-    // this.userService.getAllByName(this.nameFilter).subscribe(data => {
-
-    //   this.artists = data;
-
-    // }, (error) => {
-    //   if (error.status == 404) {
-    //     this.noArtists = true;
-    //   }
-    // });
-    // this.searchForm.resetForm();
-
-
-  };
+ 
   getUsers() {
 
     this.userService.getAll().subscribe(data => {
@@ -139,7 +124,7 @@ export class UsersComponent implements OnInit {
   }
 
   edit(artistId: string) {
-    // this.route.navigate(['admin/artist/', artistId])
+    this.route.navigate(['admin/user/edit/', artistId])
   }
 
 

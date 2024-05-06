@@ -37,6 +37,18 @@
                         <span *ngIf="email.errors?.['userAlreadyExists']">Já existe um usuário com este email!</span>
                     </div>
                 </div>
+                <div class="inputs-content">
+                    <label for="role">Tipo</label>
+                    <div class="input-radio">
+                        <label>
+                                    <input type="radio" name="role" value="USER"  formControlName="role" > Usuário
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="role" value="EDITOR" formControlName="role"> Editor
+                                  </label>
+
+                    </div>
+                </div>
 
                 <div class="inputs-content">
                     <label for="password">Senha</label>

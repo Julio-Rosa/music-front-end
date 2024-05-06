@@ -1,0 +1,124 @@
+<div class="container">
+    <app-error-popup class="popup-container" *ngIf="error" [message]="errorMessage"></app-error-popup>
+    <app-success-popup class="popup-container" *ngIf="success" [message]="successMessage"></app-success-popup>
+    <div class="page-name">
+        <p>NOVO USUÁRIO</p>
+    </div>
+
+    <div id="form-container" *ngIf="user">
+        <form [formGroup]="editForm" >
+            <div  class="inputs-card">
+
+                <div class="inputs-content">
+                    <label for="name">Nome</label>
+                    <div class="input-div">
+                        <input type="text" id="name" [(ngModel)]="user.name" formControlName="name">
+
+                    </div>
+                </div>
+                <div id="errors">
+                    <div class="error"
+                        *ngIf="(editSubbmited && name.invalid) ||(name.invalid && (name.dirty || name.touched))">
+                        <span *ngIf="name.errors?.['required']">O Nome não pode estar em
+                            branco!</span>
+                    </div>
+                </div>
+
+                <div class="inputs-content">
+                    <label for="email">Email</label>
+                    <div class="input-div">
+                        <input type="text" id="email" [(ngModel)]="user.email" formControlName="email">
+
+                    </div>
+                </div>
+                <div id="errors">
+                    <div class="error"
+                        *ngIf="(editSubbmited &&  email.invalid)  || (email.invalid && (email.dirty || email.touched))">
+                        <span *ngIf="email.errors?.['required']">O campo email é obrigatorio!</span>
+                        <span *ngIf="email.errors?.['email']">Insira um email válido!</span>
+                        <span *ngIf="email.errors?.['userAlreadyExists']">Já existe um usuário com este email!</span>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+            </div>
+            <div id="submit-card">
+                <button class=" button  gray-3" [disabled]="editForm.invalid" [class.disabled]="editForm.invalid"
+                    (click)="updateUser()">SALVAR</button>
+            </div>
+        </form>
+
+    </div>
+
+
+    <div id="form-container" *ngIf="user">
+        <form [formGroup]="updatePasswordForm" >
+            <div  class="inputs-card">
+
+
+
+
+                <div class="inputs-content">
+                    <label for="password">Senha</label>
+                    <div class="input-div">
+                        <input type="password" id="password" formControlName="password">
+
+                    </div>
+                </div>
+                <div id="errors">
+                    <div class="pass-errors"
+                        *ngIf=" (updatePasswordSubbmited  && password.invalid) || ( password.invalid && ( password.dirty || password.touched))">
+
+                        <span [class.font-green]="!password.errors?.['passwordRequirements'].specialChar"> Caractere
+                            especial</span>
+                        <span [class.font-green]="!password.errors?.['passwordRequirements'].number"> Número</span>
+                        <span [class.font-green]="!password.errors?.['passwordRequirements'].lower"> Letra
+                            miniscula</span>
+                        <span [class.font-green]="!password.errors?.['passwordRequirements'].upper"> Letra
+                            maiscula</span>
+                        <span [class.font-green]="!password.errors?.['passwordRequirements'].length"> Minimo 8
+                            caracteres</span>
+
+
+                    </div>
+
+                </div>
+                <div class="inputs-content">
+                    <label for="confirmPassword">Repita a senha</label>
+                    <div class="input-div">
+                        <input type="password" id="confirmPassword" formControlName="confirmPassword">
+
+                    </div>
+                </div>
+                <div id="errors">
+                    <div class="error"
+                        *ngIf=" (updatePasswordSubbmited && confirmPassword.invalid)  || (confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched))">
+                        <span *ngIf="confirmPassword.errors?.['empty']">Confirme a senha!</span>
+                        <span *ngIf="confirmPassword.errors?.['mismatch']">As senhas não conferem!</span>
+
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+            </div>
+            <div id="submit-card">
+                <button class=" button  gray-3" [disabled]="updatePasswordForm.invalid" [class.disabled]="updatePasswordForm.invalid"
+                    (click)="resetUserPassword()">SALVAR</button>
+            </div>
+        </form>
+
+    </div>

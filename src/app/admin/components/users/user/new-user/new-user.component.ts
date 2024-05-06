@@ -31,6 +31,7 @@ export class NewUserComponent implements OnInit {
     this.newForm = formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
+      role: [''],
       password: ['', [Validators.required, this.validPassword()]],
       confirmPassword: ['',]
 
@@ -70,17 +71,6 @@ export class NewUserComponent implements OnInit {
 
 
   }
-
-
-
-
-
-
-
-
-
-
-
 
   validPassword(): ValidatorFn {
 
@@ -161,6 +151,8 @@ export class NewUserComponent implements OnInit {
     return this.newForm.get('confirmPassword');
   }
 
+
+
   onSubmit() {
 
     this.subbmited = true;
@@ -179,6 +171,7 @@ export class NewUserComponent implements OnInit {
     const body = {
       name: this.newForm.get('name').value,
       email: this.newForm.get('email').value,
+      role_name: this.newForm.get('role').value,
       password: this.newForm.get('password').value,
 
     }

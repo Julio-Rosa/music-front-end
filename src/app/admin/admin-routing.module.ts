@@ -9,6 +9,8 @@ import { MusicEditComponent } from './components/music-edit/music-edit.component
 import { EditArtistComponent } from './artist/edit-artist/edit-artist/edit-artist.component';
 import { NewComponent } from './artist/new/new.component';
 import { NewUserComponent } from './components/users/user/new-user/new-user.component';
+import { EditUserComponent } from './components/users/user/edit-user/edit-user.component';
+import { MeComponent } from './components/me/me/me.component';
 
 const routes: Routes = [
   {
@@ -18,11 +20,13 @@ const routes: Routes = [
       { path: 'artists', component: ArtistsComponent },
       {path:'users', component: UsersComponent},
       {path:'user/new', component: NewUserComponent},
+      {path:'user/edit/:id', component: EditUserComponent},
       { path: 'artist/new', component: NewComponent },
       { path: 'artist/:id', component: ArtistComponent },
      
       {path: 'artist/edit/:id', component: EditArtistComponent},
       {path:'music/edit/:id', component: MusicEditComponent},
+      {path:'me', component: MeComponent}
       
     ]
   },

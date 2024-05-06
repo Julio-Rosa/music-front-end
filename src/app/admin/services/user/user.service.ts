@@ -31,5 +31,19 @@ deleteById(id:string):Observable<any>{
   return this.http.delete<any>(`http://localhost:8082/user/${id}`)
 }
 
+getById(id:string):Observable<User>{
+  return this.http.get<User>(`http://localhost:8082/user/${id}`)
+}
+
+updateUser(id:string, body:any): Observable<User>{
+  return this.http.put<User>(`http://localhost:8082/user/${id}`, body)
+}
+resetUserPassword(id:string, body:any): Observable<User>{
+  return this.http.put<User>(`http://localhost:8082/user/password/${id}`, body)
+}
+updatePassword(body:any){
+  return this.http.put(`http://localhost:8082/user/me/password`, body)
+}
+
 
 }
