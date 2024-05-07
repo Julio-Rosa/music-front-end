@@ -35,8 +35,11 @@ getById(id:string):Observable<User>{
   return this.http.get<User>(`http://localhost:8082/user/${id}`)
 }
 
-updateUser(id:string, body:any): Observable<User>{
+updateUserById(id:string, body:any): Observable<User>{
   return this.http.put<User>(`http://localhost:8082/user/${id}`, body)
+}
+updateUser(body:any): Observable<User>{
+  return this.http.put<User>(`http://localhost:8082/user/me`, body)
 }
 resetUserPassword(id:string, body:any): Observable<User>{
   return this.http.put<User>(`http://localhost:8082/user/password/${id}`, body)

@@ -2,7 +2,7 @@
     <app-error-popup class="popup-container" *ngIf="error" [message]="errorMessage"></app-error-popup>
     <app-success-popup class="popup-container" *ngIf="success" [message]="successMessage"></app-success-popup>
     <div class="page-name">
-        <p>NOVO USUÁRIO</p>
+        <p>EDITAR USUÁRIO</p>
     </div>
 
     <div id="form-container" *ngIf="user">
@@ -37,6 +37,18 @@
                         <span *ngIf="email.errors?.['required']">O campo email é obrigatorio!</span>
                         <span *ngIf="email.errors?.['email']">Insira um email válido!</span>
                         <span *ngIf="email.errors?.['userAlreadyExists']">Já existe um usuário com este email!</span>
+                    </div>
+                </div>
+                <div class="inputs-content">
+                    <label for="role">Tipo</label>
+                    <div class="input-radio">
+                        <label>
+                                    <input   type="radio" name="defaultRole" value="{{user.role}}"  formControlName="defaultRole" />{{user.role}}
+                        </label>
+                                  <label>
+                                    <input type="radio" name="secondRole"  value="{{secondRole}}" formControlName="secondRole" > {{secondRole}}
+                                  </label>
+
                     </div>
                 </div>
 

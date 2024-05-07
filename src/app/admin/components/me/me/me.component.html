@@ -74,9 +74,10 @@
                 </div>
                 <div id="errors">
                     <div class="error"
-                        *ngIf=" (updatePasswordSubbmited && confirmPassword.invalid)  || (confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched))">
-                        <span *ngIf="confirmPassword.errors?.['empty']">Confirme a senha!</span>
-                        <span *ngIf="confirmPassword.errors?.['mismatch']">As senhas não conferem!</span>
+                        *ngIf=" (updatePasswordSubbmited && userPassword.invalid)  || (userPassword.invalid && (userPassword.dirty || userPassword.touched))">
+                        <span *ngIf="userPassword.errors?.['password']">Senha incorreta!</span>
+                        <span *ngIf="userPassword.errors?.['required']">A senha não pode estar em branco!</span>
+                       
 
 
                     </div>

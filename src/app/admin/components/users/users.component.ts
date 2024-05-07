@@ -47,31 +47,37 @@ export class UsersComponent implements OnInit {
 
   me() {
     this.userService.me().subscribe(response => {
+      
       this.user = response;
     })
   }
 
-  reset() {
-    this.noUsers = false;
-    this.getUsers();
-  };
+
  
   getUsers() {
 
     this.userService.getAll().subscribe(data => {
 
-      let usersData: User[] = [];
-      usersData = data;
-      let index = usersData.findIndex(index => index.user_id === this.user.user_id);
-      usersData.splice(index);
+    
+   
 
-     
-      this.users = usersData;
-      
+      for( let i in data){
+       
+          if(!(data[i]['user_id'] === this.user.user_id)){
+         
+            this.users.push(data[i]);
+          }
+      }
+
       if(this.users.length === 0){
-        
         this.noUsers = true;
       }
+
+    
+     
+
+      
+     
 
       // Remove the logged user os list of users
     }, (error) => {
@@ -104,7 +110,7 @@ export class UsersComponent implements OnInit {
 
       setTimeout(() =>{
         this.success = false;
-        this.reset();
+        window.location.reload();
       }, 3000)
 
 

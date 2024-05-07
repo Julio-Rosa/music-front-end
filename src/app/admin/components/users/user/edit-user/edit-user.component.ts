@@ -28,7 +28,9 @@ export class EditUserComponent implements OnInit {
   userId:string;
 
   user: User;
-
+  userRole: string;
+  secondRole: string;
+  
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) {
 
     this.updatePasswordForm = formBuilder.group ({
@@ -38,15 +40,32 @@ export class EditUserComponent implements OnInit {
     this.editForm = formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
+      defaultRole: ['',],
+      secondRole: ['']
+    
       
 
      } )
   }
 
-  ngOnInit(): void {
-    this.getById();
-  }
 
+
+  ngOnInit(): void {
+
+    
+
+    
+  
+
+    
+
+
+    
+   
+  
+   
+  }
+  
 
 
   passwordMatchValidator(form: FormGroup) {
@@ -127,7 +146,7 @@ export class EditUserComponent implements OnInit {
   }
 
   edit(id:string, body: any) {
-    this.userService.updateUser(id,body).subscribe(response => {
+    this.userService.updateUserById(id,body).subscribe(response => {
       
       this.success = true;
       this.successMessage = 'Dados do usuario salvo com sucesso!';
@@ -177,6 +196,16 @@ export class EditUserComponent implements OnInit {
 
       this.userService.getById(this.userId).subscribe(result => {
          this.user = result;
+         if(this.user.role === 'USER'){
+          this.secondRole = 'EDITOR';
+        }
+        if(this.userRole === 'EDITOR'){
+          this.secondRole = 'USER'    
+        }
+
+        
+         
+         
       })
     })
   }
@@ -188,6 +217,14 @@ export class EditUserComponent implements OnInit {
   get email() {
     return this.editForm.get('email');
   }
+  get defaultRole() {
+    return this.editForm.get('defaulRole');
+  }
+  get secondRoleValue(){
+    return this.editForm.get('secondRole');
+  }
+
+  
 
   get password() {
 
@@ -212,6 +249,7 @@ export class EditUserComponent implements OnInit {
       const body = {
         name: this.editForm.get('name').value,
         email: this.editForm.get('email').value,
+        role_name: this.editForm.get('role').value,
   
       }
       this.edit(this.userId, body);

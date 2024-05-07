@@ -132,8 +132,8 @@ export class MeComponent implements OnInit {
 
   }
 
-  edit(id: string, body: any) {
-    this.userService.updateUser(id, body).subscribe(response => {
+  edit(body: any) {
+    this.userService.updateUser( body).subscribe(response => {
 
       this.success = true;
       this.successMessage = 'Dados atualizados com sucesso!';
@@ -167,9 +167,12 @@ export class MeComponent implements OnInit {
         window.location.reload();
       }, 3000)
     }, (error) => {
-      this.error = true;
-      this.errorMessage = 'Ocorreu um erro ao atualizar a senha!';
 
+      if(error.status === 400){
+        this.userPassword.setErrors({'password': true});
+  
+      }
+     
       setTimeout(() => {
         this.error = false;
       }, 3000)
@@ -215,7 +218,7 @@ export class MeComponent implements OnInit {
       email: this.editForm.get('email').value,
 
     }
-    this.edit(this.user.user_id, body);
+    this.edit( body);
 
   }
 
