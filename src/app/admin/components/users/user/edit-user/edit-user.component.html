@@ -43,11 +43,12 @@
                     <label for="role">Tipo</label>
                     <div class="input-radio">
                         <label>
-                                    <input   type="radio" name="defaultRole" value="{{user.role}}"  formControlName="defaultRole" />{{user.role}}
+                                    <input [(ngModel)]="selectedRadio"   type="radio" name="role" value="USER"  formControlName="role" />User
                         </label>
-                                  <label>
-                                    <input type="radio" name="secondRole"  value="{{secondRole}}" formControlName="secondRole" > {{secondRole}}
-                                  </label>
+                        <label>
+                            <input [(ngModel)]="selectedRadio"   type="radio" name="role" value="EDITOR"  formControlName="role" />Editor
+                </label>
+                                  
 
                     </div>
                 </div>

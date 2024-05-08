@@ -29,7 +29,8 @@ export class EditUserComponent implements OnInit {
 
   user: User;
   userRole: string;
-  secondRole: string;
+  selectedRadio:string;
+ 
   
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute) {
 
@@ -40,8 +41,7 @@ export class EditUserComponent implements OnInit {
     this.editForm = formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      defaultRole: ['',],
-      secondRole: ['']
+      role: ['']
     
       
 
@@ -53,17 +53,7 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
 
     
-
-    
-  
-
-    
-
-
-    
-   
-  
-   
+    this.getById();
   }
   
 
@@ -196,12 +186,9 @@ export class EditUserComponent implements OnInit {
 
       this.userService.getById(this.userId).subscribe(result => {
          this.user = result;
-         if(this.user.role === 'USER'){
-          this.secondRole = 'EDITOR';
-        }
-        if(this.userRole === 'EDITOR'){
-          this.secondRole = 'USER'    
-        }
+
+         this.selectedRadio = this.user.role;
+         
 
         
          
@@ -217,12 +204,10 @@ export class EditUserComponent implements OnInit {
   get email() {
     return this.editForm.get('email');
   }
-  get defaultRole() {
-    return this.editForm.get('defaulRole');
+  get role() {
+    return this.editForm.get('role');
   }
-  get secondRoleValue(){
-    return this.editForm.get('secondRole');
-  }
+  
 
   
 

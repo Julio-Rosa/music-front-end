@@ -49,6 +49,15 @@
 
                     </div>
                 </div>
+                <div id="errors" >
+                    <div class="error" *ngIf=" (subbmited && role.invalid)  || (role.invalid && (role.dirty || role.touched))">
+                        <span *ngIf="role.errors?.['role']">Confirme a regra!</span>
+                     
+                       
+                        
+                    </div>
+                </div>
+
 
                 <div class="inputs-content">
                     <label for="password">Senha</label>

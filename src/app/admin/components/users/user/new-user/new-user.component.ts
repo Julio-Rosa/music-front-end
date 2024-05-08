@@ -31,7 +31,7 @@ export class NewUserComponent implements OnInit {
     this.newForm = formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      role: [''],
+      role: ['', Validators.required],
       password: ['', [Validators.required, this.validPassword()]],
       confirmPassword: ['',]
 
@@ -149,6 +149,10 @@ export class NewUserComponent implements OnInit {
   get confirmPassword() {
 
     return this.newForm.get('confirmPassword');
+  }
+  get role() {
+
+    return this.newForm.get('role');
   }
 
 
