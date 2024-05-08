@@ -1,15 +1,7 @@
-<div class="container">
-    <app-error-popup class="popup-container" *ngIf="error" [message]="errorMessage"></app-error-popup>
-    <app-success-popup class="popup-container" *ngIf="success" [message]="successMessage"></app-success-popup>
-    <div class="page-name">
-        <p>NOVO USUÁRIO</p>
-    </div>
 
-   <div class="form-container">
-    <app-new-user-form class="form-app"  (formSubmit)="handleFormSubmit($event)"></app-new-user-form>
-   </div>
+   
 
-    <!-- <div id="form-container">
+    <div id="form-container">
         <form [formGroup]="newForm" (ngSubmit)="onSubmit()">
             <div id="inputs-card">
 
@@ -111,7 +103,7 @@
             </div>
         </form>
 
-    </div> -->
+    </div>
 
-</div>
+
 

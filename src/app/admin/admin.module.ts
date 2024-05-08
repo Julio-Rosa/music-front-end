@@ -20,6 +20,7 @@ import { NewComponent } from './artist/new/new.component';
 import { NewUserComponent } from './components/users/user/new-user/new-user.component';
 import { EditUserComponent } from './components/users/user/edit-user/edit-user.component';
 import { MeComponent } from './components/me/me/me.component';
+import { NewUserFormComponent } from '../components/forms/user/new-user-form/new-user-form.component';
 
 
 
@@ -40,7 +41,8 @@ import { MeComponent } from './components/me/me/me.component';
     NewComponent,
     NewUserComponent,
     EditUserComponent,
-    MeComponent
+    MeComponent,
+    NewUserFormComponent
     
     
     
